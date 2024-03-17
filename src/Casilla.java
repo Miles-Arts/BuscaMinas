@@ -4,6 +4,11 @@ public class Casilla {
     int posColumna;
     boolean mina;
 
+    public Casilla(int posfila, int posColumna) {
+        this.posfila = posfila;
+        this.posColumna = posColumna;
+    }
+
     public int getPosfila() {
         return posfila;
     }
