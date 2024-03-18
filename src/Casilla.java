@@ -3,6 +3,7 @@ public class Casilla {
     int posFila;
     int posColumna;
     boolean mina;
+    int numMinasAlrededor;
 
     public Casilla(int posFila, int posColumna) {
         this.posFila = posFila;
@@ -34,4 +35,6 @@ public class Casilla {
     public void setMina(boolean mina) {
         this.mina = mina;
     }
+
+
 }

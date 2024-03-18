@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.List;
+
 public class TableroBuscaMinas {
 
     Casilla[][] casillas;
@@ -51,6 +54,35 @@ public class TableroBuscaMinas {
         }
     }
 
+    private void actualizarNumeroMinasAlrededor() {
+        for (int i = 0; i < casillas.length; i++) {
+            for (int j = 0; j < casillas[i].length; j++) {
+                if (casillas[i][j].isMina()) {
+
+                }
+            }
+        }
+    }
+
+    private List<Casilla> obtenerCasillasAlrededor(int posFila, int posColumna) {
+        List<Casilla> listaCasillas = new LinkedList<>();
+        for (int i = 0; i < 8; i++){
+            int tmpPosFila = posFila;
+            int tmpPosColumna = posColumna;
+            switch(i) {
+                case 0: tmpPosFila --; break; // ARRIBA
+                case 1: tmpPosFila --; break; // ARRIBA DERECHA
+                case 2: tmpPosColumna ++; break; // DERECHA
+                case 3: tmpPosColumna ++; tmpPosFila ++; break; // DERECHA ABAJO
+                case 4: tmpPosFila ++; break; // ABAJO
+                case 5: tmpPosFila ++; tmpPosColumna --; break; // ABAJO IZQUIERDA
+                case 6: tmpPosColumna --; break; // IZQUIERDA
+                case 7: tmpPosFila --; tmpPosColumna --; break; // IZQUIERDA ARRIBA
+            }
+
+        }
+        return listaCasillas;
+    }
 
     public static void main(String[] args) {
         TableroBuscaMinas tablero = new  TableroBuscaMinas(6, 10, 15);
