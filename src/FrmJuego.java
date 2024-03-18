@@ -10,18 +10,18 @@ public class FrmJuego extends javax.swing.JFrame {
 
 
     public FrmJuego() {
-        initComponents();
+        frameInit();
         cargarControles();
     }
 
+   // @org.jetbrains.annotations.Contract(pure = true)
     private void cargarControles() {
         int posXReferencia = 25;
         int posYReferencia = 25;
         int anchoControl = 30;
         int altoControl = 30;
-    }
 
-    private void cargarControles() {
+
         botonesTablero = new JButton[numFilas][numColumnas];
 
         for (int i = 0; i < botonesTablero.length; i++) {
@@ -29,10 +29,14 @@ public class FrmJuego extends javax.swing.JFrame {
                 botonesTablero[i][j] = new JButton();
                 botonesTablero[i][j].setName(i + "," + j);
                 botonesTablero[i][j].setBorder(null);
-                if ( i == 0 && j == 0){
+                if (i == 0 && j == 0) {
                     botonesTablero[i][j].setBounds(posXReferencia, posYReferencia, anchoControl, altoControl);
+
+
                 }
-               // botonesTablero[i][j].setBounds(j, j, WIDTH, HEIGHT);
+
+                getContentPane().add(botonesTablero[i][j]);
+                // botonesTablero[i][j].setBounds(j, j, WIDTH, HEIGHT);
             }
         }
     }
