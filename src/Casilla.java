@@ -1,20 +1,22 @@
 public class Casilla {
 
-    int posfila;
+    int posFila;
     int posColumna;
     boolean mina;
 
-    public Casilla(int posfila, int posColumna) {
-        this.posfila = posfila;
+    public Casilla(int posFila, int posColumna) {
+        this.posFila = posFila;
         this.posColumna = posColumna;
     }
 
-    public int getPosfila() {
-        return posfila;
+
+
+    public int getPosFila() {
+        return posFila;
     }
 
-    public void setPosfila(int posfila) {
-        this.posfila = posfila;
+    public void setPosFila(int posFila) {
+        this.posFila = posFila;
     }
 
     public int getPosColumna() {
