@@ -36,5 +36,17 @@ public class Casilla {
         this.mina = mina;
     }
 
+    public int getNumMinasAlrededor() {
+        return numMinasAlrededor;
+    }
+
+    public void setNumMinasAlrededor(int numMinasAlrededor) {
+        this.numMinasAlrededor = numMinasAlrededor;
+    }
+
+    public void incrementarNumeroMinasAlrededor() {
+        this.numMinasAlrededor++;
+    }
+
 
 }

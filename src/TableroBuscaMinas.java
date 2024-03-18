@@ -41,6 +41,7 @@ public class TableroBuscaMinas {
                 minasGeneradas++;
             }
         }
+        actualizarNumeroMinasAlrededor();
     }
 
 
@@ -54,11 +55,21 @@ public class TableroBuscaMinas {
         }
     }
 
+    private void imprimirPistas() {
+        for (int i = 0; i < casillas.length; i++) {
+            for (int j = 0; j < casillas[i].length; j++) {
+                System.out.print(casillas[i][j].getNumMinasAlrededor());
+            }
+            System.out.println("");
+        }
+    }
+
     private void actualizarNumeroMinasAlrededor() {
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas[i].length; j++) {
                 if (casillas[i][j].isMina()) {
-
+                    List<Casilla> casillasAlrededor = obtenerCasillasAlrededor( i, j);
+                    casillasAlrededor.forEach((c) -> c.incrementarNumeroMinasAlrededor()) ;
                 }
             }
         }
@@ -80,13 +91,19 @@ public class TableroBuscaMinas {
                 case 7: tmpPosFila --; tmpPosColumna --; break; // IZQUIERDA ARRIBA
             }
 
+            if( tmpPosFila >= 0 && tmpPosFila < this.casillas.length && tmpPosColumna >= 0 && tmpPosColumna < this.casillas[0].length) {
+                listaCasillas.add(this.casillas[tmpPosFila] [tmpPosColumna]);
+            }
+
         }
         return listaCasillas;
     }
 
     public static void main(String[] args) {
-        TableroBuscaMinas tablero = new  TableroBuscaMinas(6, 10, 15);
+        TableroBuscaMinas tablero = new  TableroBuscaMinas(5, 5, 5);
         //System.out.println("---");
         tablero.imprimirTablero();
+        System.out.println("--");
+        tablero.imprimirPistas();
     }
 }
