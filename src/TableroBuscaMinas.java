@@ -45,7 +45,6 @@ public class TableroBuscaMinas {
     }
 
 
-
     private void imprimirTablero() {
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas[i].length; j++) {
