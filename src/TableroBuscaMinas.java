@@ -13,7 +13,6 @@ public class TableroBuscaMinas {
     Consumer<List<Casilla>> eventoPartidaPerdida;
 
 
-
     public TableroBuscaMinas(int numFila, int numColumnas, int numMinas) {
         this.numFila = numFila;
         this.numColumnas = numColumnas;
@@ -48,7 +47,7 @@ public class TableroBuscaMinas {
     }
 
 
-    private void imprimirTablero() {
+    public void imprimirTablero() {
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas[i].length; j++) {
                 System.out.print(casillas[i][j].isMina()?"*":"0");
@@ -111,15 +110,13 @@ public class TableroBuscaMinas {
                     }
                 }
             }
-
-            eventoPartidaPerdida.accept(casillasConMinas);
-
         }
     }
 
     public void setEventoPartidaPerdida(Consumer<List<Casilla>> eventoPartidaPerdida) {
-        this.eventoPartidaPerdida = eventoPartidaPerdida;;
+        this.eventoPartidaPerdida = eventoPartidaPerdida;
     }
+
 
     public static void main(String[] args) {
         TableroBuscaMinas tablero = new  TableroBuscaMinas(5, 5, 5);

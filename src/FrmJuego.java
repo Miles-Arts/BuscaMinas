@@ -13,7 +13,6 @@ public class FrmJuego extends javax.swing.JFrame {
     JButton[][] botonesTablero;
 
     TableroBuscaMinas tableroBuscaMinas;
-    private JPanel panel1;
 
 
     public FrmJuego() {
@@ -33,7 +32,11 @@ public class FrmJuego extends javax.swing.JFrame {
             }
         });
 
+        tableroBuscaMinas.imprimirTablero();
+
     }
+
+
 
     // @org.jetbrains.annotations.Contract(pure = true)
     private void cargarControles() {
