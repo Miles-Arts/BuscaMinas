@@ -13,6 +13,7 @@ public class TableroBuscaMinas {
     Consumer<List<Casilla>> eventoPartidaPerdida;
 
 
+
     public TableroBuscaMinas(int numFila, int numColumnas, int numMinas) {
         this.numFila = numFila;
         this.numColumnas = numColumnas;
@@ -114,6 +115,10 @@ public class TableroBuscaMinas {
             eventoPartidaPerdida.accept(casillasConMinas);
 
         }
+    }
+
+    public void setEventoPartidaPerdida(Consumer<List<Casilla>> eventoPartidaPerdida) {
+        this.eventoPartidaPerdida = eventoPartidaPerdida;;
     }
 
     public static void main(String[] args) {

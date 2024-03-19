@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class FrmJuego extends javax.swing.JFrame {
 
@@ -21,6 +23,16 @@ public class FrmJuego extends javax.swing.JFrame {
 
     private void crearTableroBuscaMinas() {
         tableroBuscaMinas = new TableroBuscaMinas(numFilas, numColumnas, numMinas);
+        tableroBuscaMinas.setEventoPartidaPerdida(new Consumer<List<Casilla>>() {
+            @Override
+            public void accept(List<Casilla> t) {
+
+                for(Casilla casillaConMina : t ) {
+                    botonesTablero[casillaConMina.getPosFila()] [casillaConMina.getPosColumna()].setText("*");
+                }
+            }
+        });
+
     }
 
     // @org.jetbrains.annotations.Contract(pure = true)
@@ -66,6 +78,7 @@ public class FrmJuego extends javax.swing.JFrame {
             int posFila =  Integer.parseInt(coordenada[0]);
             int posColumna = Integer.parseInt((coordenada[1]));
             JOptionPane.showMessageDialog(rootPane, posFila + "," + posColumna);
+            tableroBuscaMinas.seleccionarCasilla(posFila,posColumna);
         }
 
         private void createUIComponents () {
