@@ -9,12 +9,18 @@ public class FrmJuego extends javax.swing.JFrame {
     int numMinas = 20;
 
     JButton[][] botonesTablero;
+
+    TableroBuscaMinas tableroBuscaMinas;
     private JPanel panel1;
 
 
     public FrmJuego() {
         frameInit();
         cargarControles();
+    }
+
+    private void crearTableroBuscaMinas() {
+        tableroBuscaMinas = new TableroBuscaMinas(numFilas, numColumnas, numMinas);
     }
 
     // @org.jetbrains.annotations.Contract(pure = true)
@@ -58,7 +64,7 @@ public class FrmJuego extends javax.swing.JFrame {
             JButton btn = (JButton)e.getSource();
             String[]  coordenada = btn.getName().split(",");
             int posFila =  Integer.parseInt(coordenada[0]);
-            int posColumna = Integer.parseInt((coordenada[i]));
+            int posColumna = Integer.parseInt((coordenada[1]));
             JOptionPane.showMessageDialog(rootPane, posFila + "," + posColumna);
         }
 

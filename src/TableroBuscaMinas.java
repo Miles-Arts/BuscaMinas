@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TableroBuscaMinas {
 
@@ -9,6 +10,7 @@ public class TableroBuscaMinas {
     int numColumnas;
     int numMinas;
 
+    Consumer<List<Casilla>> eventoPartidaPerdida;
 
 
     public TableroBuscaMinas(int numFila, int numColumnas, int numMinas) {
@@ -96,6 +98,22 @@ public class TableroBuscaMinas {
 
         }
         return listaCasillas;
+    }
+
+    public void seleccionarCasilla(int posFila, int posColumna){
+        if (this.casillas[posFila][posColumna].isMina()) {
+            List<Casilla> casillasConMinas = new LinkedList<>();
+            for (int i = 0; i < casillas.length; i++) {
+                for (int j = 0; j < casillas[i].length; j++) {
+                    if (casillas[i][j].isMina()) {
+                        casillasConMinas.add(casillas[i][j]);
+                    }
+                }
+            }
+
+            eventoPartidaPerdida.accept(casillasConMinas);
+
+        }
     }
 
     public static void main(String[] args) {
