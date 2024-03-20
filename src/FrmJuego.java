@@ -16,6 +16,7 @@ public class FrmJuego extends javax.swing.JFrame {
     private JButton nuevoJuegoButton;
     private JButton juegoButton;
     private JButton tamañoButton;
+    private JButton numeroMinasButton;
 
 
     public FrmJuego() {
@@ -120,8 +121,8 @@ public class FrmJuego extends javax.swing.JFrame {
                 // botonesTablero[i][j].setBounds(j, j, WIDTH, HEIGHT);
             }
         }
+        this.setSize(botonesTablero[numFilas - 1][numColumnas - 1].getX() + botonesTablero[numFilas - 1][numColumnas - 1].getWidth() + 30, + botonesTablero[numFilas - 1][numColumnas - 1].getY() + botonesTablero[numFilas - 1][numColumnas - 1].getHeight() + 70 );
     }
-
         public void btnClick (ActionEvent e){
             JButton btn = (JButton)e.getSource();
             String[]  coordenada = btn.getName().split(",");
