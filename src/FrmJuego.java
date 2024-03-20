@@ -146,4 +146,10 @@ public class FrmJuego extends javax.swing.JFrame {
            juegoNuevo();
         }
 
+    private void menuNumMinasActionPerformed(java.awt.event.ActionEvent evt){
+        int num = Integer.parseInt(JOptionPane.showInputDialog("Digita el Número de minas"));
+        this.numMinas = num;
+        juegoNuevo();
+    }
+
 }
