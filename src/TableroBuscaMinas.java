@@ -10,7 +10,11 @@ public class TableroBuscaMinas {
     int numColumnas;
     int numMinas;
 
-    Consumer<List<Casilla>> eventoPartidaPerdida;
+    private Consumer<List<Casilla>> eventoPartidaPerdida;
+
+    Consumer<Casilla> eventoCasillaAbierta;
+
+
 
 
     public TableroBuscaMinas(int numFila, int numColumnas, int numMinas) {
@@ -101,6 +105,8 @@ public class TableroBuscaMinas {
     }
 
     public void seleccionarCasilla(int posFila, int posColumna){
+        eventoCasillaAbierta.accept(this.casillas[posFila][posColumna]);
+
         if (this.casillas[posFila][posColumna].isMina()) {
             List<Casilla> casillasConMinas = new LinkedList<>();
             for (int i = 0; i < casillas.length; i++) {
@@ -110,13 +116,19 @@ public class TableroBuscaMinas {
                     }
                 }
             }
+            eventoPartidaPerdida.accept(casillasConMinas);
+        } else if (this.casillas[posFila][posColumna].getNumMinasAlrededor() == 0) {
+            List<Casilla> casillasAlrededor = obtenerCasillasAlrededor(posFila, posColumna);
+            for(Casilla casilla: casillasAlrededor) {
+                if(!casilla.isAbierta()) {
+                    casilla.setAbierta(true);
+                    if(casilla.getNumMinasAlrededor() == 0 ) {
+                        seleccionarCasilla(casilla.getPosFila(), casilla.getPosColumna());
+                    }
+                }
+            }
         }
     }
-
-    public void setEventoPartidaPerdida(Consumer<List<Casilla>> eventoPartidaPerdida) {
-        this.eventoPartidaPerdida = eventoPartidaPerdida;
-    }
-
 
     public static void main(String[] args) {
         TableroBuscaMinas tablero = new  TableroBuscaMinas(5, 5, 5);
@@ -125,4 +137,14 @@ public class TableroBuscaMinas {
         System.out.println("--");
         tablero.imprimirPistas();
     }
+
+    public void setEventoPartidaPerdida(Consumer<List<Casilla>> eventoPartidaPerdida) {
+        this.eventoPartidaPerdida = eventoPartidaPerdida;
+    }
+
+    public void setEventoCasillaAbierta(Consumer<Casilla> eventoCasillaAbierta) {
+        this.eventoCasillaAbierta = eventoCasillaAbierta;
+    }
+
+
 }

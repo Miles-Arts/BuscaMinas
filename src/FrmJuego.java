@@ -32,6 +32,13 @@ public class FrmJuego extends javax.swing.JFrame {
             }
         });
 
+        tableroBuscaMinas.setEventoCasillaAbierta(new Consumer<Casilla>() {
+            @Override
+            public void accept(Casilla t) {
+                botonesTablero[t.getPosFila()][t.getPosColumna()].setEnabled(false);
+                botonesTablero[t.getPosFila()][t.getPosColumna()].setText(t.getNumMinasAlrededor() + "");
+            }
+        });
         tableroBuscaMinas.imprimirTablero();
 
     }
