@@ -15,12 +15,19 @@ public class FrmJuego extends javax.swing.JFrame {
     TableroBuscaMinas tableroBuscaMinas;
     private JButton nuevoJuegoButton;
     private JButton juegoButton;
+    private JButton tamañoButton;
 
 
     public FrmJuego() {
         frameInit();
        // initComponents();
         juegoNuevo();
+        tamañoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     void descargarControler() {
@@ -39,6 +46,7 @@ public class FrmJuego extends javax.swing.JFrame {
         descargarControler();
         cargarControles();
         crearTableroBuscaMinas();
+        repaint();
     }
 
     private void crearTableroBuscaMinas() {
@@ -129,6 +137,12 @@ public class FrmJuego extends javax.swing.JFrame {
 
         private void menuNuevoJuegoActionPerformed(java.awt.event.ActionEvent evt){
             juegoNuevo();
+        }
+        private void menuTamanoActionPerformed(java.awt.event.ActionEvent evt){
+           int num = Integer.parseInt(JOptionPane.showInputDialog("Digita Tamaño de la Matriz, n*n"));
+           this.numFilas = num;
+           this.numColumnas = num;
+           juegoNuevo();
         }
 
 }
