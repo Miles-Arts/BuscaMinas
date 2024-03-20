@@ -13,11 +13,32 @@ public class FrmJuego extends javax.swing.JFrame {
     JButton[][] botonesTablero;
 
     TableroBuscaMinas tableroBuscaMinas;
+    private JButton nuevoJuegoButton;
+    private JButton juegoButton;
 
 
     public FrmJuego() {
         frameInit();
+       // initComponents();
+        juegoNuevo();
+    }
+
+    void descargarControler() {
+        if(botonesTablero != null) {
+            for (int i = 0; i < botonesTablero.length ; i++) {
+                for (int j = 0; j < botonesTablero[i].length; j++ ){
+                    if (botonesTablero[i][j] != null ) {
+                        getContentPane().remove(botonesTablero[i][j]);
+                    }
+                }
+            }
+        }
+    }
+
+    private void juegoNuevo(){
+        descargarControler();
         cargarControles();
+        crearTableroBuscaMinas();
     }
 
     private void crearTableroBuscaMinas() {
@@ -54,7 +75,6 @@ public class FrmJuego extends javax.swing.JFrame {
 
 
     }
-
 
 
     // @org.jetbrains.annotations.Contract(pure = true)
@@ -105,6 +125,10 @@ public class FrmJuego extends javax.swing.JFrame {
 
         private void createUIComponents () {
             // Inicializa y configura los componentes personalizados aquí
+        }
+
+        private void menuNuevoJuegoActionPerformed(java.awt.event.ActionEvent evt){
+            juegoNuevo();
         }
 
 }
