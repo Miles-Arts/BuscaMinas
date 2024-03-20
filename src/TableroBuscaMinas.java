@@ -10,9 +10,12 @@ public class TableroBuscaMinas {
     int numColumnas;
     int numMinas;
 
-    private Consumer<List<Casilla>> eventoPartidaPerdida;
+    int numCasillasAbiertas;
 
-    Consumer<Casilla> eventoCasillaAbierta;
+    private Consumer<List<Casilla>> eventoPartidaPerdida;
+    private Consumer<List<Casilla>> eventoPartidaGanada;
+
+    private Consumer<Casilla> eventoCasillaAbierta;
 
 
 
@@ -104,30 +107,53 @@ public class TableroBuscaMinas {
         return listaCasillas;
     }
 
+    List<Casilla> obtenerCasillaConMinas() {
+        List<Casilla> casillasConMinas = new LinkedList<>();
+        for (int i = 0; i < casillas.length; i++) {
+            for (int j = 0; j < casillas[i].length; j++) {
+                if (casillas[i][j].isMina()) {
+                    casillasConMinas.add(casillas[i][j]);
+                }
+            }
+        }
+        return casillasConMinas;
+    }
+
     public void seleccionarCasilla(int posFila, int posColumna){
         eventoCasillaAbierta.accept(this.casillas[posFila][posColumna]);
 
         if (this.casillas[posFila][posColumna].isMina()) {
-            List<Casilla> casillasConMinas = new LinkedList<>();
-            for (int i = 0; i < casillas.length; i++) {
-                for (int j = 0; j < casillas[i].length; j++) {
-                    if (casillas[i][j].isMina()) {
-                        casillasConMinas.add(casillas[i][j]);
-                    }
-                }
-            }
-            eventoPartidaPerdida.accept(casillasConMinas);
+
+            eventoPartidaPerdida.accept(obtenerCasillaConMinas());
         } else if (this.casillas[posFila][posColumna].getNumMinasAlrededor() == 0) {
+            marcarCasillaAbierta(posFila,posColumna);
             List<Casilla> casillasAlrededor = obtenerCasillasAlrededor(posFila, posColumna);
             for(Casilla casilla: casillasAlrededor) {
                 if(!casilla.isAbierta()) {
                     casilla.setAbierta(true);
-                    if(casilla.getNumMinasAlrededor() == 0 ) {
-                        seleccionarCasilla(casilla.getPosFila(), casilla.getPosColumna());
-                    }
+                    seleccionarCasilla(casilla.getPosFila(), casilla.getPosColumna());
+//                    if(casilla.getNumMinasAlrededor() == 0 ) {
+//
+//                    }
                 }
             }
+        } else {
+            marcarCasillaAbierta(posFila, posColumna);
         }
+        if(partidaGanada()){
+            eventoPartidaGanada.accept(obtenerCasillaConMinas());
+        }
+    }
+
+    void marcarCasillaAbierta(int posFila, int posColumna) {
+        if(!this.casillas[posFila][posColumna].isAbierta()){
+            numCasillasAbiertas++;
+            this.casillas[posFila][posColumna].setAbierta(true);
+        }
+    }
+
+    boolean partidaGanada() {
+        return numCasillasAbiertas >=(numFila*numColumnas)-numMinas;
     }
 
     public static void main(String[] args) {
@@ -144,6 +170,11 @@ public class TableroBuscaMinas {
 
     public void setEventoCasillaAbierta(Consumer<Casilla> eventoCasillaAbierta) {
         this.eventoCasillaAbierta = eventoCasillaAbierta;
+    }
+
+
+    public void setEventoPartidaGanada(Consumer<List<Casilla>> eventoPartidaGanada) {
+        this.eventoPartidaGanada = eventoPartidaGanada;
     }
 
 

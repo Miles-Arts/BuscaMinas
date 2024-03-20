@@ -8,7 +8,7 @@ public class FrmJuego extends javax.swing.JFrame {
 
     int numFilas = 10;
     int numColumnas = 10;
-    int numMinas = 20;
+    int numMinas = 10;
 
     JButton[][] botonesTablero;
 
@@ -32,14 +32,26 @@ public class FrmJuego extends javax.swing.JFrame {
             }
         });
 
+        tableroBuscaMinas.setEventoPartidaGanada(new Consumer<List<Casilla>>() {
+            @Override
+            public void accept(List<Casilla> t) {
+                for(Casilla casillaConMina: t){
+                    botonesTablero[casillaConMina.getPosFila()][casillaConMina.getPosColumna()].setText(":)");
+                }
+            }
+        });
+
+
         tableroBuscaMinas.setEventoCasillaAbierta(new Consumer<Casilla>() {
             @Override
             public void accept(Casilla t) {
                 botonesTablero[t.getPosFila()][t.getPosColumna()].setEnabled(false);
-                botonesTablero[t.getPosFila()][t.getPosColumna()].setText(t.getNumMinasAlrededor() + "");
+                botonesTablero[t.getPosFila()][t.getPosColumna()]
+                        .setText(t.getNumMinasAlrededor()==0?"":t.getNumMinasAlrededor()+"");
             }
         });
         tableroBuscaMinas.imprimirTablero();
+
 
     }
 
